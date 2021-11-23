@@ -6,12 +6,11 @@ import {
 } from "react-router-dom";
 import Auth from "../router/Auth";
 import Home from "../router/Home";
-const AppRouter= () => {
-    const [isLoggIn, setIsLoggedIn] = useState(false);
+const AppRouter= ({isLoggedIn}) => {
     return(
         <Router>
             <Routes>
-                {isLoggIn ? (
+                {isLoggedIn ? (
                     <Route exact path="/" element={<Home/>} />
                 ) : (
                     <Route exact path="/" element={<Auth/>} />

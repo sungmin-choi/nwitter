@@ -1,5 +1,10 @@
 # ⚛ nwitter 토이 프로젝트
-## React 와 Firebase
+## 📌프로젝트 요구사항
+- [X]- 사용자가 로그인 했는지 안했는지 확인하기.
+  - []- 로그인 안했다면 Auth 화면으로.
+    - []- 이메일 ,비번 input 생성.
+    - []- Google,Github 연동 로그인 버튼 생성. 
+  - []- 로그인 했다면 Home 화면으로.
 
 ## 🛠 Tech Stack
 <p>
