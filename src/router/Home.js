@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import { collection, addDoc,query,onSnapshot } from "firebase/firestore";
+import NweetCom from "../components/Nweet";
 const Home = ({userObj}) => {
     const [Nweet,setNweet]=useState("");
     const [Nweets,setNweets]=useState([]);
+    const [attachment,setAttachment]=useState(null);
 
     useEffect(()=>{
         const q = query(collection(dbService, "Nweets"));
@@ -23,6 +25,17 @@ const Home = ({userObj}) => {
         });
     },[]);
 
+    const onChangeFile=(event)=>{
+        const {target:{files}}=event;
+        const theFile=files[0];
+        const reader = new FileReader();
+        reader.onloadend=(event)=>{
+            const {currentTarget:{result}}=event;
+            setAttachment(result);
+        }
+        reader.readAsDataURL(theFile);
+    }
+
     const onSubmit= async(event)=>{
         event.preventDefault();
         await addDoc(collection(dbService, "Nweets"), {
@@ -33,6 +46,8 @@ const Home = ({userObj}) => {
         setNweet("");
     }
 
+    const cancelupload =()=> setAttachment(null);
+
     const onChange=(event)=>{
         const {target:{value}}=event;
         setNweet(value);
@@ -42,12 +57,17 @@ const Home = ({userObj}) => {
         <>
         <form onSubmit={onSubmit}>
             <input onChange={onChange} value={Nweet}  type="text" placeholder="input your mind" maxLength={120}/>
+            <input onChange={onChangeFile} type="file" accept="image/*" />
             <input type="submit" value="Nweet"/>
         </form>
+            {attachment?(<div>
+                <img src={attachment} width="50px" height="50px"/>
+                <button onClick={cancelupload}>Cancel</button>
+            </div>)
+            :<></>}
+        
         <div>
-        {Nweets.map((nweet) =>{
-            return <div key={nweet.id}><h4>{nweet.text}</h4></div>
-        })}
+        {Nweets.map((nweet) => <NweetCom key={nweet.id} NweetObj={nweet} userObj={userObj.uid===nweet.creatorId} />)}
         </div>
         </>
 
