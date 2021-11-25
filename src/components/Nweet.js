@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { doc, deleteDoc,updateDoc} from "firebase/firestore";
-import { dbService } from '../fbase';
-
+import { dbService,storageService } from '../fbase';
+import { ref, deleteObject } from "firebase/storage";
 const Nweet = ({NweetObj,userObj}) => {
     const [editing,setEditing]=useState(false);
     const [newNweet,setNewSweet]=useState(NweetObj.text);
@@ -25,7 +25,9 @@ const Nweet = ({NweetObj,userObj}) => {
     const onDelete= async()=>{
         let confirm = window.confirm("are u sure delete it?");
         if(confirm){
+            const desertRef = ref(storageService, NweetObj.imageId);
             await deleteDoc(doc(dbService, "Nweets", `${NweetObj.id}`));
+            await deleteObject(desertRef);
         }
     }
 

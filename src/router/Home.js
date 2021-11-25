@@ -42,9 +42,11 @@ const Home = ({userObj}) => {
     const onSubmit= async(event)=>{
         event.preventDefault();
         let fileUrl="";
+        let imageId=""
         if(attachment){
         const uuid = uuidv4();
         const storageRef = ref(storageService, `${userObj.uid}/${uuid}`);
+        imageId=`${userObj.uid}/${uuid}`;
         await uploadString(storageRef, attachment, 'data_url');
         fileUrl=await getDownloadURL(ref(storageService, `${userObj.uid}/${uuid}`));
         }
@@ -52,6 +54,7 @@ const Home = ({userObj}) => {
             text:Nweet,
             creatorId:userObj.uid,
             fileUrl,
+            imageId,
             createAt:Date.now()
         }
         await addDoc(collection(dbService, "Nweets"),nweetObj);
