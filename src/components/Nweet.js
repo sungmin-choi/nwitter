@@ -42,7 +42,7 @@ const Nweet = ({NweetObj,userObj}) => {
             <button onClick={toggleEditing}>Cancel</button>
             </>) :(<>
                 <h4>{NweetObj.text}</h4>
-                <img src={NweetObj.fileUrl} width="50px" height="50px"/>
+                {NweetObj.fileUrl && <img src={NweetObj.fileUrl} width="50px" height="50px"/>}
                 {userObj && <>
                 <button onClick={onDelete}>Delete</button>
                 <button onClick={toggleEditing}>Edit</button>

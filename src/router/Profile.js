@@ -1,13 +1,23 @@
-import React from "react";
-import { authService } from "../fbase";
+import React, { useEffect } from "react";
+import { authService,dbService } from "../fbase";
 import {useNavigate} from 'react-router-dom';
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-const Profile = () => {
+const Profile = ({userObj}) => {
     const navigate = useNavigate();
+
     const handleLogOut=()=>{
         authService.signOut();
         navigate("/");
     }
+
+    const getNweets= async()=>{
+
+    }
+
+    useEffect(()=>{
+        getNweets();
+    },[])
     return(
         <>
         <span>Profile</span>
