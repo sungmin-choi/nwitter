@@ -1,4 +1,7 @@
 # ⚛ nwitter 토이 프로젝트
+## ✨구현 장면
+![image description](public/extention1.PNG )
+![image description](public/캡처.PNG )
 ## 📌프로젝트 요구사항
 - [X] 사용자가 로그인 했는지 안했는지 확인하기.
   - [X] 로그인 안했다면 Auth 화면으로.
