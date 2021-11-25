@@ -11,6 +11,7 @@ const Profile = ({userObj,refreshUser}) => {
     const handleLogOut=()=>{
         authService.signOut();
         navigate("/");
+        refreshUser();
     }
 
     const onChange=(event)=>{

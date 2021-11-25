@@ -6,15 +6,23 @@ function App() {
   const [init,setInit]=useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userobj,setUserObj]=useState(null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(()=>{
       onAuthStateChanged(authService, (user) => {
       if(user){
         setIsLoggedIn(true);
+        if(user.displayName===null){
+          user.displayName="newUser";
+        }
         setUserObj({
           uid:user.uid,
           displayName:user.displayName
         });
+        setInit(true);
+      }
+      else{
+        setUserObj(null);
+        setIsLoggedIn(false);
         setInit(true);
       }
     });   
