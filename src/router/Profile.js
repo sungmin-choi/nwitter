@@ -3,7 +3,7 @@ import { authService} from "../fbase";
 import {useNavigate} from 'react-router-dom';
 import {updateProfile } from "firebase/auth";
 
-const Profile = ({userObj}) => {
+const Profile = ({userObj,refreshUser}) => {
     const [newDisplayName,setNewDisplayName] =useState(userObj.displayName);
 
     const navigate = useNavigate();
@@ -23,6 +23,7 @@ const Profile = ({userObj}) => {
         await updateProfile(authService.currentUser, {
             displayName:newDisplayName
         })
+        refreshUser();
     }
 
     return(
